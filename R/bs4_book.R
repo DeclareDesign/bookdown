@@ -404,7 +404,7 @@ tweak_navbar <- function(html, toc, active = "", rmd_index = NULL, repo = NULL) 
   template_link(html, ".//a[@id='book-edit']", repo_edit)
 
   # Within chapter nav --------------------------------------------------
-  head <- toc[toc$file_name == active & toc$level > 0 & !is.na(toc$id), ]
+  head <- toc[toc$file_name == active & toc$level > 0 & !is.na(toc$id) &  toc$id != "welcome", ]
   if (nrow(head) > 0) {
     link <- paste0(
       "<a class='nav-link' href='#", head$id, "'>",
@@ -431,12 +431,21 @@ tweak_navbar <- function(html, toc, active = "", rmd_index = NULL, repo = NULL) 
       "</ul>\n"
     )
 
+    # browser()
+
     node <- xml2::xml_find_first(html, ".//div[@id='book-on-this-page']")
     xml2::xml_replace(node, xml2::read_xml(nav))
+
+  }
+
+  if(active == "index.html") {
+    nav_title <- "<div class='col-md-3 col-lg-2'></div>"
+    node_nav <- xml2::xml_find_first(html, ".//div[@id='on-this-page-nav']")
+    xml2::xml_replace(node_nav, xml2::read_xml(nav_title))
   }
 
   # TOC ---------------------------------------------------------------------
-  nav <- toc[toc$level %in% 0:1, ]
+  nav <- toc[toc$level %in% 0:1 & toc$id != "welcome", ]
   nav <- nav[!duplicated(nav$file_name) | is.na(nav$file_name), ]
 
   is_active <- nav$file_name == active
