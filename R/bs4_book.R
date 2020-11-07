@@ -404,7 +404,7 @@ tweak_navbar <- function(html, toc, active = "", rmd_index = NULL, repo = NULL) 
   template_link(html, ".//a[@id='book-edit']", repo_edit)
 
   # Within chapter nav --------------------------------------------------
-  head <- toc[toc$file_name == active & toc$level > 0 & !is.na(toc$id) &  toc$id != "welcome", ]
+  head <- toc[toc$file_name == active & toc$level > 0 & !is.na(toc$id) & toc$file_name != "index.html", ]
   if (nrow(head) > 0) {
     link <- paste0(
       "<a class='nav-link' href='#", head$id, "'>",
@@ -445,7 +445,7 @@ tweak_navbar <- function(html, toc, active = "", rmd_index = NULL, repo = NULL) 
   }
 
   # TOC ---------------------------------------------------------------------
-  nav <- toc[toc$level %in% 0:1 & toc$id != "welcome", ]
+  nav <- toc[toc$level %in% 0:1 & (toc$file_name != "index.html" | is.na(toc$file_name)), ]
   nav <- nav[!duplicated(nav$file_name) | is.na(nav$file_name), ]
 
   is_active <- nav$file_name == active
