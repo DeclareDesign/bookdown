@@ -225,8 +225,8 @@ bs4_book_dependency <- function(theme) {
         name = "bs4_book",
         version = "1.0.0",
         src = assets,
-        stylesheet = c("bs4_book.css"),
-        script = c("bs4_book.js")
+        stylesheet = c("bs4_book.css", "dd_imgpopup.css"),
+        script = c("bs4_book.js", "dd_imgpopup.js")
       )
     )
   )
