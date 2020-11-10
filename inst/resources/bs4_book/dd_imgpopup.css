@@ -15,3 +15,5 @@
 .zoomImg {
   width: 100%;
 }
+
+.zoomImg:hover {opacity: 0.7;}
