@@ -399,7 +399,8 @@ tweak_navbar <- function(html, toc, active = "", rmd_index = NULL, repo = NULL) 
     repo_view <- NULL
   }
 
-  template_link(html, ".//a[@id='download-code']", paste0("./", toc$id[toc$file_name == active], ".R"))
+  print(toc$id[toc$file_name == active & toc$level == 1])
+  template_link(html, ".//a[@id='download-code']", paste0("./", toc$id[toc$file_name == active & toc$level == 1], ".R"))
 
   template_link(html, ".//a[@id='book-repo']", repo)
   template_link(html, ".//a[@id='book-source']", repo_view)
